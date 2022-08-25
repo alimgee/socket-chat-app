@@ -10,13 +10,16 @@ app.use(cors());
 
 const socketIO = require('socket.io')(http, {
   cors: {
-      origin: "http://localhost:3000"
+    origin: "http://localhost:3000"
   }
 });
 
 //Add this before the app.get() block
 socketIO.on('connection', (socket) => {
   console.log(`⚡: ${socket.id} user just connected!`);
+  socket.on('message', (data) => {
+    console.log(data);
+  });
   socket.on('disconnect', () => {
     console.log('🔥: A user disconnected');
   });
